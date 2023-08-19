@@ -40,6 +40,9 @@ export default function SecureLayout({ children }) {
               <Navigation.Item to="/friends">
                 เพื่อน
               </Navigation.Item>
+              <Navigation.Item to="/group">
+                กลุ่ม
+              </Navigation.Item>
             </Navigation>
           </div>
           <div className="main">{children}</div>
