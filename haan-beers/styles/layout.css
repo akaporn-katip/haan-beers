@@ -1,0 +1,16 @@
+.layout {
+  @apply flex justify-center;
+}
+
+.layout > .nav {
+  @apply w-[285px];
+}
+
+.layout > .main {
+  /* @apply container mx-auto px-8 ; */
+  @apply container px-8;
+}
+
+.layout > .empty {
+  @apply w-[285px];
+}

@@ -1,0 +1,15 @@
+.card {
+    @apply rounded-3xl border-4 border-black bg-white-smoke divide-y-4 divide-black shadow-cartoon-inset shadow-gray-400;
+  }
+
+  .card .card-title {
+    @apply text-black font-bold text-4xl p-4;
+  }
+
+  .card .card-body {
+    @apply p-4;
+  }
+
+  .card .card-action {
+    @apply p-4 flex-initial;
+  }

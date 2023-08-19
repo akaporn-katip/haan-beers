@@ -1,0 +1,15 @@
+.btn {
+  @apply text-center inline-flex items-center px-4 h-14 text-xl font-bold rounded-2xl border-4 shadow-cartoon-inset active:shadow-none;
+}
+
+.btn.btn-primary {
+  @apply bg-mint-500 active:bg-mint-600 text-black border-black;
+}
+
+.btn.btn-cancel {
+  @apply bg-red-500 active:bg-red-600 text-black border-black;
+}
+
+.btn.btn-submit {
+  @apply bg-saffron-500 active:bg-saffron-600 text-black border-black;
+}

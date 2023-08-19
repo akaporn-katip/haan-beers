@@ -1,0 +1,3 @@
+.sidebar-container {
+  @apply sticky top-2 p-2 rounded-xl bg-white-smoke;
+}

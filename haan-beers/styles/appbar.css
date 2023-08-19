@@ -1,0 +1,3 @@
+.appbar-container {
+  @apply container h-20 mx-auto px-8;
+}

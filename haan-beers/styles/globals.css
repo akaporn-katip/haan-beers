@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  body {
+    @apply bg-saffron-500;
+  }
+
+  @import url("./card.css");
+  @import url("./button.css");
+  @import url("./appbar.css");
+  @import url("./sidebar.css");
+  @import url("./layout.css");
+}
