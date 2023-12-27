@@ -1,9 +1,16 @@
 import logo from "./logo.svg";
 import "./App.css";
+import * as stylex from "@stylexjs/stylex";
+
+const s = stylex.create({
+  container: {
+    textAlign: "center",
+  },
+});
 
 function App() {
   return (
-    <div className="App">
+    <div {...stylex.props(s.container)}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

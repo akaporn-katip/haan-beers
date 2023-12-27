@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stylexjs/babel-plugin": "^0.3.0",
+    "@stylexjs/stylex": "^0.3.0",
+    "@stylexjs/webpack-plugin": "^0.3.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "million": "^2.6.4",
+    "monet": "^0.9.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
@@ -41,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0"
+    "@craco/craco": "^7.1.0",
+    "@stylexjs/dev-runtime": "^0.3.0"
   }
 }
