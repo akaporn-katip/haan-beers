@@ -74,7 +74,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 bill`{
     bill_name: '',
     status: 'draft|publish',
-    summary: ''
+    summary: '',
+    person_summary: [
+        {
+            name: '',
+            amount: '',
+            detail: [{item_name}]
+        }
+    ],
     order_line: [
         {
             item_name: '',
@@ -82,9 +89,20 @@ bill`{
             price: '',
             unit: 'บาท|บาท/หน่วย'
             person: [
-                {name: '', range: [1, 10]},
-                {name: '', range: [3, 10]},
-                {name: '', range: [5, 8]},
+                {name: '', range: [1, 10], amount: ''},
+                {name: '', range: [3, 10], amount: ''},
+                {name: '', range: [5, 8], amount: ''},
+            ]
+        },
+        {
+            item_name: '',
+            type: 'หารเท่า|แบบสัดส่วน',
+            price: '',
+            unit: 'บาท|บาท/หน่วย'
+            person: [
+                {name: '', range: []},
+                {name: '', range: []},
+                {name: '', range: []},
             ]
         }
     ]
