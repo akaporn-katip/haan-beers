@@ -4,15 +4,21 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
+  @apply font-plex;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.btn.btn-create-bill {
+  @apply outline outline-2 text-create-bill-button-outline
+  outline-create-bill-button-outline 
+  bg-create-bill-button-default 
+  hover:bg-create-bill-button-hover 
+  active:bg-create-bill-button-active;
 }

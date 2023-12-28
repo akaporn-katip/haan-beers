@@ -3,6 +3,7 @@ import Root from "@/root";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./error-page";
 import MainLayout from "./layout/main-layout";
+import CreateBillPage from "./page/bill/create-bill";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,14 @@ const router = createBrowserRouter([
         element: <MainLayout />,
         children: [
           {
+            id: "home",
             path: "/",
             element: <HomePage />,
+          },
+          {
+            id: "create-bill",
+            path: "/create",
+            element: <CreateBillPage />,
           },
         ],
       },
