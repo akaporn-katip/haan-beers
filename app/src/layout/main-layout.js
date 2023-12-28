@@ -5,7 +5,7 @@ import AppBar from "../component/common/appbar";
 export default function MainLayout() {
   return (
     <>
-      <div>
+      <div className="container">
         <AppBar />
         <Outlet />
       </div>

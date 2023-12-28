@@ -1,4 +1,4 @@
 
 export default function AppBar() {
-  return <div>AppBar</div>;
+  return <div className="text-3xl font-bold underline">AppBar</div>;
 }
