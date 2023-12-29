@@ -52,6 +52,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
     }));
   }
 
+  // eslint-disable-next-line no-unused-vars
   function handleAddPeople() {
     updateItem((prev) => ({
       ...prev,

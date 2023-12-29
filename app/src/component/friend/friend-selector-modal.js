@@ -9,6 +9,8 @@ export default function FriendSelectorModal({
   initialValue,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  
+  // eslint-disable-next-line no-unused-vars
   const [friendList, setFriendList] = useState([
     { id: "1", name: "1 Tip", range: [], amount: "" },
     { id: "2", name: "2 Np", range: [], amount: "" },
