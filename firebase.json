@@ -31,21 +31,17 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "hosting": {
+      "port": 5010
+    }
   },
   "hosting": {
-    "source": "./haan-beers",
+    "public": "./app/build",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "cleanUrls": true,
-    "rewrites": [
-      {
-        "source": "/**", 
-        "dynamicLinks": true
-      }
     ],
     "frameworksBackend": {
       "region": "asia-east1"
