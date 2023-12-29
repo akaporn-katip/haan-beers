@@ -5,7 +5,6 @@ import ItemEditor from "../../component/order-line/item-editor";
 import Divider from "../../component/common/divider";
 import { useNavigate } from "react-router-dom";
 
-
 export default function CreateBillPage() {
   const bill_name_ref = useRef();
   const navigate = useNavigate();
@@ -56,7 +55,7 @@ export default function CreateBillPage() {
           <input
             ref={bill_name_ref}
             className="w-full font-bold text-4xl h-16 focus:outline-none"
-            placeholder="ชื่อบิล..."
+            placeholder="ใส่ชื่อบิล..."
             maxLength={30}
           />
         </div>
@@ -86,9 +85,14 @@ export default function CreateBillPage() {
       </div>
       <div className="flex flex-row text-white sticky bottom-0">
         <button className="flex-grow bg-primary w-full h-16">submit</button>
-        <button className="flex-1 bg-danger w-full h-16 px-14" onClick={() => {
-          navigate("/")
-        }}>cancel</button>
+        <button
+          className="flex-1 bg-danger w-full h-16 px-14"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          cancel
+        </button>
       </div>
     </>
   );

@@ -34,7 +34,7 @@ module.exports = {
           active: color_palettes["golden-tainoi"][100],
           outline: color_palettes["golden-tainoi"][700],
         },
-        "friend-list-bg": color_palettes["golden-tainoi"][50]
+        "friend-list-bg": "white"
       },
     },
   },

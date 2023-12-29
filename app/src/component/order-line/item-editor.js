@@ -1,5 +1,9 @@
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FriendSelectorModal from "../friend/friend-selector-modal";
 
 const FriendComponent = function ({ item, person, updatePerson }) {
   function handleUpdatePerson(e) {
@@ -11,13 +15,21 @@ const FriendComponent = function ({ item, person, updatePerson }) {
 
   return (
     <>
-      <div>{person.name}</div>
       <div>
         <input
-          className="text-right w-full border-b-4 border-dashed bg-friend-list-bg"
+          className="text-left w-full border-b-2 border-dashed "
+          defaultValue={person.name}
+          readOnly
+        />
+      </div>
+      <div>
+        <input
+          className="text-right w-full border-b-2 border-dashed bg-friend-list-bg"
           value={person.amount}
           onChange={handleUpdatePerson}
           readOnly={item.type === "equality"}
+          inputMode="numeric"
+          placeholder={item.type === "adjust" ? "ใส่ราคา" : ""}
         />
       </div>
     </>
@@ -44,6 +56,13 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
     updateItem((prev) => ({
       ...prev,
       person: [...prev.person, { name: "", amount: "0.00" }],
+    }));
+  }
+
+  function handleSetPerson(person) {
+    updateItem((prev) => ({
+      ...prev,
+      person: [...person],
     }));
   }
 
@@ -74,12 +93,12 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
             className="w-full text-xl"
             value={initialValue.item_name}
             onChange={handleUpdateItem}
-            placeholder="ชื่อรายการ..."
+            placeholder="ใส่ชื่อรายการ..."
             maxLength={20}
             autoComplete={"off"}
           />
         </div>
-        <div className="flex items-start text-xl">วิธีคำนวณ</div>
+        <div className="flex items-start text-xl">เลือกวิธีคำนวณ</div>
         <div className="flex flex-col">
           <label className="flex items-center text-xl">
             <input
@@ -132,23 +151,31 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
         <div className="text-right">ราคา/ช่วง</div>
         {initialValue.person.map((person, idx) => (
           <FriendComponent
-            key={idx}
+            key={person.id}
             item={initialValue}
             person={person}
             updatePerson={updatePerson(idx)}
           />
         ))}
-        <div className="col-span-2 flex justify-center">
-          <button
-            className="py-1 px-2 rounded-lg outline outline-2 
+        <div className="col-span-2 flex justify-end">
+          <FriendSelectorModal
+            item={initialValue}
+            initialValue={initialValue.person}
+            setPerson={handleSetPerson}
+          >
+            {(open) => (
+              <button
+                className="py-1 px-2 rounded-lg outline outline-2 
         outline-create-item-button-outline 
         text-create-item-button-outline 
         hover:bg-create-item-button-hover 
         active:bg-create-item-button-active"
-            onClick={handleAddPeople}
-          >
-            <FontAwesomeIcon icon={faPlus} /> เพิ่มเพื่อนลงรายการ
-          </button>
+                onClick={open}
+              >
+                <FontAwesomeIcon icon={faUserPlus} />
+              </button>
+            )}
+          </FriendSelectorModal>
         </div>
       </div>
     </div>
