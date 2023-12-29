@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import ItemEditor from "../../component/order-line/item-editor";
 import Divider from "../../component/common/divider";
+import { useNavigate } from "react-router-dom";
+
 
 export default function CreateBillPage() {
   const bill_name_ref = useRef();
-
+  const navigate = useNavigate();
   const [orderLine, setOrderLine] = useState([]);
 
   function addItem() {
@@ -82,8 +84,11 @@ export default function CreateBillPage() {
           />
         ))}
       </div>
-      <div className="flex flex-col bg-primary text-white space-y-2 p-2 sticky bottom-0">
-        <button className="">submit</button>
+      <div className="flex flex-row text-white sticky bottom-0">
+        <button className="flex-grow bg-primary w-full h-16">submit</button>
+        <button className="flex-1 bg-danger w-full h-16 px-14" onClick={() => {
+          navigate("/")
+        }}>cancel</button>
       </div>
     </>
   );

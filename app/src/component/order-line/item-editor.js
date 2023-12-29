@@ -1,7 +1,7 @@
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const FriendComponent = function ({ person, updatePerson }) {
+const FriendComponent = function ({ item, person, updatePerson }) {
   function handleUpdatePerson(e) {
     updatePerson((prev) => ({
       ...prev,
@@ -14,9 +14,10 @@ const FriendComponent = function ({ person, updatePerson }) {
       <div>{person.name}</div>
       <div>
         <input
-          className="text-right w-full border-b-2 border-dotted bg-friend-list-bg"
+          className="text-right w-full border-b-4 border-dashed bg-friend-list-bg"
           value={person.amount}
           onChange={handleUpdatePerson}
+          readOnly={item.type === "equality"}
         />
       </div>
     </>
@@ -35,7 +36,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
     updateItem((prev) => ({
       ...prev,
       type: e.target.value,
-      unit: e.target.value === "equality" ? "Baht" : "Baht/Unit",
+      unit: e.target.value === "ratio" ? "Baht/Unit" : "Baht",
     }));
   }
 
@@ -60,13 +61,13 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
   }
 
   return (
-    <div className="relative border border-1 border-gray-300 p-2">
+    <div className="relative border border-1 border-gray-300">
       <div className="absolute top-3 right-3">
         <button className="text-red-500" onClick={removeItem}>
           <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
-      <div className="grid grid-flow-row-dense grid-cols-2 gap-2">
+      <div className="grid grid-flow-row-dense grid-cols-2 gap-2 p-2">
         <div className="col-span-2">
           <input
             name="item_name"
@@ -78,8 +79,8 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
             autoComplete={"off"}
           />
         </div>
-        <div className="flex items-center text-xl">วิธีคำนวณ</div>
-        <div className="flex space-x-2">
+        <div className="flex items-start text-xl">วิธีคำนวณ</div>
+        <div className="flex flex-col">
           <label className="flex items-center text-xl">
             <input
               className="accent-primary"
@@ -89,6 +90,17 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
               onChange={handleTypeChange}
             />
             หารเท่า
+          </label>
+
+          <label className="flex items-center text-xl">
+            <input
+              className="accent-primary"
+              type="radio"
+              value="adjust"
+              checked={initialValue.type === "adjust"}
+              onChange={handleTypeChange}
+            />
+            กำหนดเอง
           </label>
 
           <label className="flex items-center text-xl">
@@ -110,6 +122,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
             value={initialValue.price}
             onChange={handleUpdateItem}
             placeholder="ราคา"
+            readOnly={initialValue.type === "adjust"}
           />
         </div>
         <div className="flex items-center text-xl">{initialValue.unit}</div>
@@ -120,6 +133,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
         {initialValue.person.map((person, idx) => (
           <FriendComponent
             key={idx}
+            item={initialValue}
             person={person}
             updatePerson={updatePerson(idx)}
           />

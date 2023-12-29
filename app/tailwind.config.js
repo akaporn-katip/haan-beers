@@ -22,6 +22,7 @@ module.exports = {
       colors: {
         ...color_palettes,
         primary: color_palettes["golden-tainoi"][300],
+        danger: color_palettes["tall-poppy"][700],
         "create-bill-button": {
           default: color_palettes["golden-tainoi"][300],
           hover: color_palettes["golden-tainoi"][400],
