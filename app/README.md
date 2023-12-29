@@ -108,3 +108,6 @@ bill`{
     ]
 }`
 ```
+
+### Reference
+1. https://stackoverflow.com/questions/6178556/phone-numeric-keyboard-for-text-input

@@ -20,7 +20,8 @@ module.exports = {
         chonburi: ["'Chonburi', serif"],
       },
       colors: {
-        primary: "#fac546",
+        ...color_palettes,
+        primary: color_palettes["golden-tainoi"][300],
         "create-bill-button": {
           default: color_palettes["golden-tainoi"][300],
           hover: color_palettes["golden-tainoi"][400],
@@ -32,6 +33,7 @@ module.exports = {
           active: color_palettes["golden-tainoi"][100],
           outline: color_palettes["golden-tainoi"][700],
         },
+        "friend-list-bg": color_palettes["golden-tainoi"][50]
       },
     },
   },

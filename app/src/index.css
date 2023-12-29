@@ -7,7 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
-  @apply font-plex;
+  @apply font-plex text-golden-tainoi-950;
 }
 
 code {
@@ -21,4 +21,8 @@ code {
   bg-create-bill-button-default 
   hover:bg-create-bill-button-hover 
   active:bg-create-bill-button-active;
+}
+
+input {
+  @apply focus:outline-none;
 }
