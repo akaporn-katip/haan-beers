@@ -17,5 +17,6 @@ export function currency_format(value) {
 }
 
 export function empty(value) {
+  if (Array.isArray(value)) return value.length === 0;
   return [null, undefined, ""].includes(value);
 }

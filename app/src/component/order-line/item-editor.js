@@ -2,6 +2,8 @@ import { faTrash, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FriendSelectorModal from "../friend/friend-selector-modal";
 import calculate_equality from "../../lib/calculate_equality";
+import calculate_adjust from "../../lib/calculate_adjust";
+
 
 const FriendComponent = function ({ item, person, handleUpdatePerson }) {
   function handleUpdatePersonAmount(e) {
@@ -68,10 +70,9 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
   }
 
   function handleSetPerson(person) {
-
     const _person = calculate_equality({
       ...initialValue,
-      person
+      person,
     });
 
     updateItem((prev) => ({
@@ -87,6 +88,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
         clone.splice(index, 1, value(clone[index]));
         return {
           ...prev,
+          price: calculate_adjust(clone),
           person: clone,
         };
       });
