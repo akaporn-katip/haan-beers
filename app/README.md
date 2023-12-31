@@ -111,3 +111,4 @@ bill`{
 
 ### Reference
 1. https://stackoverflow.com/questions/6178556/phone-numeric-keyboard-for-text-input
+2. https://paulallies.medium.com/functional-exception-handling-in-javascript-with-the-either-monad-3fb596c73912

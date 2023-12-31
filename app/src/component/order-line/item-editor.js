@@ -1,13 +1,11 @@
-import {
-  faTrash,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FriendSelectorModal from "../friend/friend-selector-modal";
+import calculate_equality from "../../lib/calculate_equality";
 
-const FriendComponent = function ({ item, person, updatePerson }) {
-  function handleUpdatePerson(e) {
-    updatePerson((prev) => ({
+const FriendComponent = function ({ item, person, handleUpdatePerson }) {
+  function handleUpdatePersonAmount(e) {
+    handleUpdatePerson((prev) => ({
       ...prev,
       amount: e.target.value,
     }));
@@ -26,7 +24,7 @@ const FriendComponent = function ({ item, person, updatePerson }) {
         <input
           className="text-right w-full border-b-2 border-dashed bg-friend-list-bg"
           value={person.amount}
-          onChange={handleUpdatePerson}
+          onChange={handleUpdatePersonAmount}
           readOnly={item.type === "equality"}
           inputMode="numeric"
           placeholder={item.type === "adjust" ? "ใส่ราคา" : ""}
@@ -44,6 +42,23 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
     }));
   }
 
+  function handleUpdatePrice(e) {
+    const person = calculate_equality({
+      ...initialValue,
+      price: e.target.value,
+    });
+
+    const item = {
+      price: e.target.value,
+      person,
+    };
+
+    updateItem((prev) => ({
+      ...prev,
+      ...item,
+    }));
+  }
+
   function handleTypeChange(e) {
     updateItem((prev) => ({
       ...prev,
@@ -52,22 +67,20 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
     }));
   }
 
-  // eslint-disable-next-line no-unused-vars
-  function handleAddPeople() {
-    updateItem((prev) => ({
-      ...prev,
-      person: [...prev.person, { name: "", amount: "0.00" }],
-    }));
-  }
-
   function handleSetPerson(person) {
+
+    const _person = calculate_equality({
+      ...initialValue,
+      person
+    });
+
     updateItem((prev) => ({
       ...prev,
-      person: [...person],
+      person: [..._person],
     }));
   }
 
-  function updatePerson(index) {
+  function handleUpdatePerson(index) {
     return function (value) {
       updateItem((prev) => {
         const clone = [...prev.person];
@@ -140,7 +153,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
             inputMode="numeric"
             className="w-full text-xl text-right"
             value={initialValue.price}
-            onChange={handleUpdateItem}
+            onChange={handleUpdatePrice}
             placeholder="ราคา"
             readOnly={initialValue.type === "adjust"}
           />
@@ -155,7 +168,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
             key={person.id}
             item={initialValue}
             person={person}
-            updatePerson={updatePerson(idx)}
+            handleUpdatePerson={handleUpdatePerson(idx)}
           />
         ))}
         <div className="col-span-2 flex justify-end">
