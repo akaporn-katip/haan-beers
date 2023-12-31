@@ -16,7 +16,15 @@ export function currency_format(value) {
   return Either.Right(formatter.format(value));
 }
 
+export const format_number = Monet.curry(function (formatter, value) {
+  return Either.right(formatter(value));
+});
+
 export function empty(value) {
   if (Array.isArray(value)) return value.length === 0;
   return [null, undefined, ""].includes(value);
+}
+
+export function is_between(value, [min, max]) {
+  return value >= min && value <= max;
 }
