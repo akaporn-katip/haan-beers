@@ -1,5 +1,5 @@
 import Monet, { Either } from "monet";
-import { convert_to, currency_format, empty, round } from "./utils";
+import { convert_to, currency_format, empty, ceil } from "./utils";
 
 export const calculate = Monet.curry(function (count, price) {
   if (count === 0) return Either.Left("Division by zero");
@@ -29,7 +29,7 @@ export default function calculate_equality(item) {
 
   const result = to_number(price)
     .chain(calculate(count))
-    .chain(round)
+    .chain(ceil)
     .chain(currency_format)
     .chain(map_to_person(person));
 

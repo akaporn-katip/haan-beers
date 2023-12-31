@@ -4,8 +4,8 @@ export const convert_to = Monet.curry(function convert_to(converter, value) {
   return Either.Right(converter(value));
 });
 
-export const round = Monet.curry(function round(value) {
-  return Either.Right(Math.round(value));
+export const ceil = Monet.curry(function (value) {
+  return Either.Right(Math.ceil(value));
 });
 
 export function currency_format(value) {
@@ -17,5 +17,5 @@ export function currency_format(value) {
 }
 
 export function empty(value) {
-    return [null, undefined, ""].includes(value)
+  return [null, undefined, ""].includes(value);
 }
