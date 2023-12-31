@@ -1,4 +1,4 @@
-import Monet, { Either, List } from "monet";
+import Monet, { Either } from "monet";
 import { format_number, is_between } from "./utils";
 
 const count_bottle = Monet.curry((persons) => {
