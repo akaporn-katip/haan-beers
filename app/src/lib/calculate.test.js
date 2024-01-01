@@ -1,4 +1,4 @@
-import { calculate_item } from "./calculate";
+import { calculate_bill, calculate_item } from "./calculate";
 
 test("calculate item - ratio", () => {
   const result = calculate_item({
@@ -16,6 +16,7 @@ test("calculate item - ratio", () => {
   });
 
   expect(result).toEqual({
+    item_name: "beer",
     price: "85",
     actual_price: "85",
     is_rounded: false,
@@ -44,6 +45,7 @@ test("calculate item - equality", () => {
   });
 
   expect(result).toEqual({
+    item_name: "beer",
     price: "401",
     actual_price: "404",
     is_rounded: true,
@@ -72,6 +74,7 @@ test("calculate item - adjust", () => {
   });
 
   expect(result).toEqual({
+    item_name: "beer",
     price: "1,000",
     actual_price: "1,000",
     is_rounded: false,
@@ -80,6 +83,74 @@ test("calculate item - adjust", () => {
       { id: 2, name: "bom", range: [], amount: "200" },
       { id: 3, name: "ben", range: [], amount: "300" },
       { id: 4, name: "beem", range: [], amount: "400" },
+    ],
+  });
+});
+
+test("calculate bill", () => {
+  const result = calculate_bill([
+    {
+      item_name: "beer",
+      type: "adjust",
+      price: "401",
+      summary: null,
+      unit: "THB/UNIT",
+      person: [
+        { id: "1", name: "np", range: [], amount: "100" },
+        { id: "2", name: "bom", range: [], amount: "200" },
+        { id: "3", name: "ben", range: [], amount: "300" },
+        { id: "4", name: "beem", range: [], amount: "400" },
+      ],
+    },
+  ]);
+
+  expect(result).toEqual({
+    summary: "1,000",
+    person: [
+      {
+        id: "1",
+        name: "np",
+        amount: "100",
+        items: [
+          {
+            item_name: "beer",
+            amount: "100",
+          },
+        ],
+      },
+      {
+        id: "2",
+        name: "bom",
+        amount: "200",
+        items: [
+          {
+            item_name: "beer",
+            amount: "200",
+          },
+        ],
+      },
+      {
+        id: "3",
+        name: "ben",
+        amount: "300",
+        items: [
+          {
+            item_name: "beer",
+            amount: "300",
+          },
+        ],
+      },
+      {
+        id: "4",
+        name: "beem",
+        amount: "400",
+        items: [
+          {
+            item_name: "beer",
+            amount: "400",
+          },
+        ],
+      },
     ],
   });
 });
