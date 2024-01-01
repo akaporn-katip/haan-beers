@@ -8,7 +8,16 @@ import { useNavigate } from "react-router-dom";
 export default function CreateBillPage() {
   const bill_name_ref = useRef();
   const navigate = useNavigate();
-  const [orderLine, setOrderLine] = useState([]);
+  const [orderLine, setOrderLine] = useState([
+    {
+      item_name: "",
+      type: "equality",
+      price: "",
+      summary: "",
+      unit: "Baht",
+      person: [],
+    },
+  ]);
 
   function addItem() {
     setOrderLine((prev) => [

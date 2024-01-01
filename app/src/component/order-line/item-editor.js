@@ -4,12 +4,18 @@ import FriendSelectorModal from "../friend/friend-selector-modal";
 import calculate_equality from "../../lib/calculate_equality";
 import calculate_adjust from "../../lib/calculate_adjust";
 
-
 const FriendComponent = function ({ item, person, handleUpdatePerson }) {
   function handleUpdatePersonAmount(e) {
     handleUpdatePerson((prev) => ({
       ...prev,
       amount: e.target.value,
+    }));
+  }
+
+  function handleUpdatePersonRange(from, to) {
+    handleUpdatePerson((prev) => ({
+      ...prev,
+      range: [from, to],
     }));
   }
 
@@ -37,10 +43,10 @@ const FriendComponent = function ({ item, person, handleUpdatePerson }) {
 };
 
 export default function ItemEditor({ initialValue, updateItem, removeItem }) {
-  function handleUpdateItem(e) {
+  function handleUpdateItemName(e) {
     updateItem((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      item_name: e.target.value,
     }));
   }
 
@@ -50,14 +56,10 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
       price: e.target.value,
     });
 
-    const item = {
-      price: e.target.value,
-      person,
-    };
-
     updateItem((prev) => ({
       ...prev,
-      ...item,
+      price: e.target.value,
+      person,
     }));
   }
 
@@ -70,14 +72,9 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
   }
 
   function handleSetPerson(person) {
-    const _person = calculate_equality({
-      ...initialValue,
-      person,
-    });
-
     updateItem((prev) => ({
       ...prev,
-      person: [..._person],
+      person,
     }));
   }
 
@@ -108,7 +105,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
             name="item_name"
             className="w-full text-xl"
             value={initialValue.item_name}
-            onChange={handleUpdateItem}
+            onChange={handleUpdateItemName}
             placeholder="ใส่ชื่อรายการ..."
             maxLength={20}
             autoComplete={"off"}

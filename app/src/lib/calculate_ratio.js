@@ -6,6 +6,14 @@ const count_bottle = Monet.curry((persons) => {
   return Either.Right(Math.max(...range));
 });
 
+function divide(a, b) {
+  return a / b;
+}
+
+function add(a, b) {
+  return a + b;
+}
+
 const calculate = Monet.curry((price, person, num_of_bottle) => {
   let result = person;
   for (let i = 1; i <= num_of_bottle; i++) {
@@ -13,7 +21,7 @@ const calculate = Monet.curry((price, person, num_of_bottle) => {
     const person_count = f_person.length;
     result = result.map((p) => {
       if (is_between(i, p.range))
-        p.amount = to_number(p.amount) + price / person_count;
+        p.amount = add(to_number(p.amount), divide(price, person_count));
       return p;
     });
   }
@@ -29,9 +37,7 @@ function to_number(value) {
   return Number(String(value).replace(",", ""));
 }
 
-export default function calculate_ratio(item) {
-  const { person, price } = item;
-
+export default function calculate_ratio(price, person) {
   const calculate_person_amount = calculate(price);
 
   const number_formatter = format_number((persons) =>
@@ -49,7 +55,7 @@ export default function calculate_ratio(item) {
     .map(ceil_number)
     .chain(number_formatter);
 
-  if (result.isRightValue) {
+  if (result.isRight()) {
     return result.value;
   } else {
     console.error("Error : " + result.value);

@@ -21,8 +21,7 @@ export const map_to_person = Monet.curry(function (person, amount) {
 //   return { default: price, rounded, is_rounded: price !== rounded };
 // });
 
-export default function calculate_equality(item) {
-  const { price, person } = item;
+export default function calculate_equality(price, person) {
   const count = person.length;
 
   const to_number = convert_to((value) => Number(value.replace(",", "")));
@@ -33,7 +32,7 @@ export default function calculate_equality(item) {
     .chain(currency_format)
     .chain(map_to_person(person));
 
-  if (result.isRightValue) {
+  if (result.isRight()) {
     return result.value;
   } else {
     console.error("Error: " + result.value);

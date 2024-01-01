@@ -21,7 +21,7 @@ export default function calculate_adjust(persons) {
     .chain(to_number)
     .chain(sum)
     .chain(currency_format);
-  if (result.isRightValue) {
+  if (result.isRight()) {
     return result.value;
   } else {
     return "";

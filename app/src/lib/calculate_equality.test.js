@@ -3,22 +3,13 @@ import calculate_equality, {
   map_to_person,
 } from "./calculate_equality";
 
-const item = {
-  item_name: "",
-  type: "equality",
-  price: "190,303",
-  summary: null,
-  unit: "THB",
-  person: [
+test("should return Right", () => {
+  const result = calculate_equality("190,303", [
     { id: 1, name: "np", range: [], amount: "" },
     { id: 2, name: "bom", range: [], amount: "" },
     { id: 3, name: "ben", range: [], amount: "" },
     { id: 4, name: "beem", range: [], amount: "" },
-  ],
-};
-
-test("should return Right", () => {
-  const result = calculate_equality(item);
+  ]);
   expect(result).toEqual([
     { id: 1, name: "np", range: [], amount: "47,576" },
     { id: 2, name: "bom", range: [], amount: "47,576" },
