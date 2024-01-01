@@ -2,11 +2,11 @@ import calculate_adjust from "./calculate_adjust";
 import calculate_equality from "./calculate_equality";
 import calculate_ratio from "./calculate_ratio";
 
-function make_summary(price, person, default_price) {
+function make_summary(price, person, actual_price) {
   return {
     price,
-    default_price,
-    is_rounded: price !== default_price,
+    actual_price,
+    is_rounded: price !== actual_price,
     person: person,
   };
 }
@@ -34,7 +34,7 @@ export function calculate_item(item) {
     return make_summary(item.price, _person, item.price);
   } else if (item.type === "equality") {
     const _person = calculate_equality(item.price, item.person);
-    return make_summary(sum_person(_person), _person, item.price);
+    return make_summary(item.price, _person, sum_person(_person));
   } else if (item.type === "adjust") {
     const price = calculate_adjust(item.person);
     return make_summary(price, item.person, price);

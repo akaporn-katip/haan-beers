@@ -1,8 +1,6 @@
-import { faTrash, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faTrash, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FriendSelectorModal from "../friend/friend-selector-modal";
-import calculate_equality from "../../lib/calculate_equality";
-import calculate_adjust from "../../lib/calculate_adjust";
 
 const FriendComponent = function ({ item, person, handleUpdatePerson }) {
   function handleUpdatePersonAmount(e) {
@@ -51,15 +49,9 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
   }
 
   function handleUpdatePrice(e) {
-    const person = calculate_equality({
-      ...initialValue,
-      price: e.target.value,
-    });
-
     updateItem((prev) => ({
       ...prev,
       price: e.target.value,
-      person,
     }));
   }
 
@@ -85,7 +77,6 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
         clone.splice(index, 1, value(clone[index]));
         return {
           ...prev,
-          price: calculate_adjust(clone),
           person: clone,
         };
       });
@@ -153,11 +144,19 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
             className="w-full text-xl text-right"
             value={initialValue.price}
             onChange={handleUpdatePrice}
-            placeholder="ราคา"
+            placeholder="ใส่ราคา"
             readOnly={initialValue.type === "adjust"}
           />
         </div>
-        <div className="flex items-center text-xl">{initialValue.unit}</div>
+        <div className="flex items-end text-xl">{initialValue.unit}</div>
+        <div className="flex items-start col-span-2">
+          {initialValue.is_rounded ? (
+            <label>
+              <FontAwesomeIcon icon={faInfoCircle} />{" "}
+              {`ราคาถูกปรับเป็น ${initialValue.actual_price} เพื่อให้หารลงตัว`}
+            </label>
+          ) : null}
+        </div>
       </div>
       <div className="grid grid-flow-row-dense grid-cols-2 p-2 rounded-sm bg-friend-list-bg gap-2">
         <div>ชื่อ</div>

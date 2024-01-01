@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import ItemEditor from "../../component/order-line/item-editor";
 import Divider from "../../component/common/divider";
 import { useNavigate } from "react-router-dom";
+import { calculate_item } from "../../lib/calculate";
 
 export default function CreateBillPage() {
   const bill_name_ref = useRef();
@@ -25,6 +26,8 @@ export default function CreateBillPage() {
       {
         item_name: "",
         type: "equality",
+        is_rounded: false,
+        actual_price: "",
         price: "",
         summary: "",
         unit: "Baht",
@@ -34,10 +37,16 @@ export default function CreateBillPage() {
   }
 
   function updateItem(index) {
-    return function (item) {
+    return function (current) {
       setOrderLine((prev) => {
         const clone = [...prev];
-        clone.splice(index, 1, item(clone[index]));
+        const calculated_item = calculate_item(current(clone[index]));
+        clone.splice(index, 1, {
+          ...current(clone[index]),
+          is_rounded: calculated_item.is_rounded,
+          actual_price: calculated_item.actual_price,
+          person: calculated_item.person,
+        });
         return clone;
       });
     };

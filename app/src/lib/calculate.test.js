@@ -17,7 +17,7 @@ test("calculate item - ratio", () => {
 
   expect(result).toEqual({
     price: "85",
-    default_price: "85",
+    actual_price: "85",
     is_rounded: false,
     person: [
       { id: 1, name: "np", range: [1, 3], amount: "114" },
@@ -44,8 +44,8 @@ test("calculate item - equality", () => {
   });
 
   expect(result).toEqual({
-    price: "404",
-    default_price: "401",
+    price: "401",
+    actual_price: "404",
     is_rounded: true,
     person: [
       { id: 1, name: "np", range: [], amount: "101" },
@@ -73,7 +73,7 @@ test("calculate item - adjust", () => {
 
   expect(result).toEqual({
     price: "1,000",
-    default_price: "1,000",
+    actual_price: "1,000",
     is_rounded: false,
     person: [
       { id: 1, name: "np", range: [], amount: "100" },
