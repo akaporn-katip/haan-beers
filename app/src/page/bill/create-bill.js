@@ -53,7 +53,7 @@ export default function CreateBillPage() {
 
   function handleSaveBill() {
     saveBill().then((id) => {
-      navigate(`/bill/${id}`);
+      navigate(`/${id.join("/")}`);
     });
   }
 

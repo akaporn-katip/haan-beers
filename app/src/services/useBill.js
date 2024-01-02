@@ -2,6 +2,7 @@ import { addDoc, getDoc, collection, doc } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 import { useMemo, useState } from "react";
 import { calculate_bill } from "../lib/calculate";
+import { auth } from "../firebase/auth";
 
 export default function useBill() {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,22 +38,25 @@ export default function useBill() {
 
   async function saveBill() {
     try {
-      const docRef = await addDoc(collection(db, "bill"), {
-        billName,
-        orderLine,
-        summary: calculate_bill(orderLine),
-      });
+      const docRef = await addDoc(
+        collection(db, "bill", "user", auth.currentUser.uid),
+        {
+          billName,
+          orderLine,
+          summary: calculate_bill(orderLine),
+        }
+      );
 
-      return docRef.id;
+      return ["bill", "user", auth.currentUser.uid, docRef.id];
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function getBill(id) {
+  async function getBill(uid, id) {
     try {
       setIsLoading(true);
-      const docRef = doc(db, "bill", id);
+      const docRef = doc(db, "bill", "user", uid, id);
       const docSnap = await getDoc(docRef);
       setIsNotFound(!docSnap.exists());
       if (docSnap.exists()) {

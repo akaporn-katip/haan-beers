@@ -3,11 +3,11 @@ import useBill from "../../services/useBill";
 import { useEffect } from "react";
 
 export default function SummaryPage() {
-  const { docId } = useParams();
+  const { docId, userId } = useParams();
   const { getBill, billName, summary, isLoading, isNotFound } = useBill();
 
   useEffect(() => {
-    getBill(docId);
+    getBill(userId, docId);
   }, [docId]);
 
   if (isLoading) return <div>Loadding</div>;
