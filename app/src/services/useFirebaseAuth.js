@@ -31,5 +31,5 @@ export default function useFirebaseAuth() {
     }
   });
 
-  return { signIn, isLogin };
+  return { signIn, isLogin, user };
 }
