@@ -8,7 +8,7 @@
  */
 
 const functions = require("firebase-functions");
-const logger = require("firebase-functions/logger");
+// const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
 const {initializeApp} = require("firebase-admin/app");
 const {onRequest} = functions.region("asia-east1").https;
@@ -18,15 +18,29 @@ const cors = require("cors")({origin: true});
 
 initializeApp();
 
-exports.helloWorld = onRequest((request, response) => {
-  logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
-});
+// exports.helloWorld = onRequest((request, response) => {
+//   logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
 
 exports.createCustomtoken = onRequest((request, response) => {
   cors(request, response, async () => {
     const headers = new Headers();
     headers.set("content-type", "application/x-www-form-urlencoded");
+
+    const requestToken = await fetch("https://api.line.me/oauth2/v2.1/token", {
+      method: "POST",
+      headers,
+      body: new URLSearchParams({
+        grant_type: "authorization_code",
+        code: request.body.data["code"],
+        redirect_uri: encodeURI(process.env["LINE_REDIRECT_URI"]),
+        client_id: process.env["LINE_CLIENT_ID"],
+        client_secret: process.env["LINE_CLIENT_SECRET"],
+      }),
+    });
+
+    const tokenInfo = await requestToken.json();
 
     const verifyResponse = await fetch(
         "https://api.line.me/oauth2/v2.1/verify",
@@ -34,11 +48,10 @@ exports.createCustomtoken = onRequest((request, response) => {
           method: "POST",
           headers,
           body: new URLSearchParams({
-            id_token: request.body.data["id_token"],
+            id_token: tokenInfo.id_token,
             client_id: process.env["LINE_CLIENT_ID"],
           }),
-        },
-    );
+        });
 
     const userInfomation = await verifyResponse.json();
 
