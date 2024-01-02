@@ -41,6 +41,9 @@ module.exports = {
           hover: "black",
           press: "black",
         },
+        "share-button": {
+          DEFAULT: color_palettes["golden-tainoi"][500],
+        },
       },
       opacity: {
         8: "0.08",
