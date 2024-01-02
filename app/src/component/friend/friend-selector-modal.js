@@ -11,16 +11,12 @@ export default function FriendSelectorModal({
   initialValue,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { friendList, fetchFriend } = useFriend();
+  const { friendList } = useFriend();
   const [selectedFriend, setSelectedFirend] = useState([...initialValue]);
 
   function isSelected(f_id) {
     return selectedFriend.map((f) => f.id).includes(f_id);
   }
-
-  useEffect(() => {
-    fetchFriend();
-  }, [fetchFriend]);
 
   useEffect(() => {
     setSelectedFirend(initialValue);

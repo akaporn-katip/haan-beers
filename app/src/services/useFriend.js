@@ -1,5 +1,5 @@
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase/firestore";
 import { auth } from "../firebase/auth";
 
@@ -8,10 +8,9 @@ export default function useFriend() {
   const [friendList, setFriendList] = useState([]);
   const [friend, setFriend] = useState({ name: "", uid: "" });
 
-  async function fetchFriend() {
+  function fetchFriend() {
     const uid = auth.currentUser.uid;
-
-    onSnapshot(collection(db, "user", uid, "friend"), (docs) => {
+    return onSnapshot(collection(db, "user", uid, "friend"), (docs) => {
       const results = [];
       docs.forEach((doc) => {
         results.push({ id: doc.id, amount: "", range: [], ...doc.data() });
@@ -19,6 +18,13 @@ export default function useFriend() {
       setFriendList(results);
     });
   }
+
+  useEffect(() => {
+    const unsubscribe = fetchFriend();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   async function saveFriend() {
     setIsLoading(true);
@@ -37,5 +43,5 @@ export default function useFriend() {
     }
   }
 
-  return { fetchFriend, saveFriend, friend, setFriend, friendList, isLoading };
+  return { saveFriend, friend, setFriend, friendList, isLoading };
 }

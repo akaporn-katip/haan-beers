@@ -1,13 +1,9 @@
-import { useEffect } from "react";
 import FriendEditor from "../../component/friend/friend-editor";
 import FirendItem from "../../component/friend/friend-item";
 import useFriend from "../../services/useFriend";
 
 export default function FriendManagerPage() {
-  const { friendList, fetchFriend } = useFriend();
-  useEffect(() => {
-    fetchFriend();
-  }, [fetchFriend]);
+  const { friendList } = useFriend();
 
   return (
     <>
