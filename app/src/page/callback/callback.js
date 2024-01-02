@@ -1,21 +1,31 @@
 import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useFirebaseAuth from "../../services/useFirebaseAuth";
 import { useNavigate } from "react-router-dom";
+import MainLayout from "@/layout/main-layout";
 
 export default function CallbackPage() {
+  const [isError, setIsError] = useState(false);
   const [searchParams] = useSearchParams();
   const { signIn } = useFirebaseAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const code = searchParams.get("code");
-    signIn(code).then(() => {
-      navigate("/");
-    });
-  }, []);
+    signIn(code)
+      .then(() => {
+        navigate("/");
+      })
+      .catch(() => {
+        setIsError(true);
+      });
+  }, [signIn, searchParams, navigate]);
 
-  return <div>
-    Please wait...
-  </div>;
+  return (
+    <MainLayout>
+      <div className="bg-white p-2 rounded-md">
+        {isError ? "Ops somethings wrong..." : "Please wait..."}
+      </div>
+    </MainLayout>
+  );
 }
