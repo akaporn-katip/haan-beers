@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Modal from "../common/modal";
 import FirendItem from "./friend-item";
+import FriendEditor from "./friend-editor";
+import useFriend from "../../services/useFriend";
 
 export default function FriendSelectorModal({
   children,
@@ -9,13 +11,7 @@ export default function FriendSelectorModal({
   initialValue,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // eslint-disable-next-line no-unused-vars
-  const [friendList, setFriendList] = useState([
-    { id: "1", name: "1 Tip", range: [], amount: "" },
-    { id: "2", name: "2 Np", range: [], amount: "" },
-    { id: "3", name: "3 B", range: [], amount: "" },
-  ]);
+  const { friendList, fetchFriend } = useFriend();
   const [selectedFriend, setSelectedFirend] = useState([...initialValue]);
 
   function isSelected(f_id) {
@@ -23,8 +19,12 @@ export default function FriendSelectorModal({
   }
 
   useEffect(() => {
-    setSelectedFirend(initialValue)
-  }, [initialValue])
+    fetchFriend();
+  }, [fetchFriend]);
+
+  useEffect(() => {
+    setSelectedFirend(initialValue);
+  }, [initialValue]);
 
   function handleChangeIsSelected(friend) {
     if (isSelected(friend.id)) {
@@ -76,6 +76,7 @@ export default function FriendSelectorModal({
             </FirendItem>
           ))}
         </div>
+        <FriendEditor />
       </Modal>
       {children(open)}
     </>

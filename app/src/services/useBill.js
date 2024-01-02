@@ -39,7 +39,7 @@ export default function useBill() {
   async function saveBill() {
     try {
       const docRef = await addDoc(
-        collection(db, "bill", "user", auth.currentUser.uid),
+        collection(db, "user", auth.currentUser.uid, "bill"),
         {
           billName,
           orderLine,
@@ -47,16 +47,17 @@ export default function useBill() {
         }
       );
 
-      return ["bill", "user", auth.currentUser.uid, docRef.id];
+      return ["user", auth.currentUser.uid, "bill", docRef.id];
     } catch (error) {
       console.error(error);
+      throw error;
     }
   }
 
   async function getBill(uid, id) {
     try {
       setIsLoading(true);
-      const docRef = doc(db, "bill", "user", uid, id);
+      const docRef = doc(db, "user", uid, "bill", id);
       const docSnap = await getDoc(docRef);
       setIsNotFound(!docSnap.exists());
       if (docSnap.exists()) {

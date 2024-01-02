@@ -36,12 +36,12 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/bill/user",
+        path: "/user/:userId",
         element: <MainLayout />,
         children: [
           {
             id: "summary-bill",
-            path: ":userId/:docId",
+            path: "bill/:docId",
             element: <SummaryPage />,
           },
         ],
