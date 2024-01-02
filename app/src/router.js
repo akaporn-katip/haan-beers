@@ -7,6 +7,8 @@ import CreateBillPage from "./page/bill/create-bill";
 import SummaryPage from "./page/bill/summary";
 import CallbackPage from "./page/callback/callback";
 import VerifyLogin from "./component/firebase/verify-login";
+import FriendManagerPage from "./page/friend/friend-manager";
+import BillListPage from "./page/home/bill-list";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,18 @@ const router = createBrowserRouter([
             id: "home",
             path: "/",
             element: <HomePage />,
+            children: [
+              {
+                id: "bill-list",
+                path: "/",
+                element: <BillListPage />,
+              },
+              {
+                id: "manage-friend",
+                path: "/friend",
+                element: <FriendManagerPage />,
+              },
+            ],
           },
           {
             id: "create-bill",
