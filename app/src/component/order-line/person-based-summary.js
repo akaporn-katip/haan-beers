@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
-export default function PersonBasedItem({ billName, summary }) {
+export default function PersonBasedSummary({ billName, summary }) {
   return (
     <>
-      <div className="flex bg-white rounded-t-md p-2">
+      <div className="flex bg-white rounded-tr-md p-2">
         <div className="text-3xl">{billName}</div>
       </div>
 
