@@ -6,7 +6,8 @@ export default function ShareButton({ children, title, text, url }) {
         text,
         url,
       });
-    else navigator.clipboard.writeText(`${title} - ${text} : ${url}`);
+    if (navigator.clipboard)
+      navigator.clipboard.writeText(`${title} - ${text} : ${url}`);
   }
   return (
     <button
