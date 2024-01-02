@@ -7,14 +7,16 @@ import { faList, faPerson, faShare } from "@fortawesome/free-solid-svg-icons";
 import { Tab } from "@headlessui/react";
 import PersonBasedSummary from "../../component/order-line/person-based-summary";
 import ItemBasedSummary from "../../component/order-line/item-based-summary";
+import useSummary from "../../services/useSummary";
 
 export default function SummaryPage() {
   const { docId, userId } = useParams();
-  const { getBill, billName, orderLine, summary, isLoading, isNotFound } = useBill();
+  const { isLoading, isNotFound, getBill, billName, summary, orderLine } =
+    useSummary();
 
   useEffect(() => {
     getBill(userId, docId);
-  }, [docId]);
+  }, [docId, userId]);
 
   if (isLoading) return <div>Loadding</div>;
   if (isNotFound) return <div>Not Found</div>;
@@ -47,14 +49,18 @@ export default function SummaryPage() {
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            <PersonBasedSummary billName={billName} summary={summary} />
+            <div className="bg-white rounded-tr-md">
+              <PersonBasedSummary billName={billName} summary={summary} />
+            </div>
           </Tab.Panel>
           <Tab.Panel>
-            <ItemBasedSummary
-              billName={billName}
-              orderLine={orderLine}
-              summary={summary}
-            />
+            <div className="bg-white rounded-tr-md">
+              <ItemBasedSummary
+                billName={billName}
+                orderLine={orderLine}
+                summary={summary}
+              />
+            </div>
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

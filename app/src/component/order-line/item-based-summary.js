@@ -1,9 +1,9 @@
 export default function ItemBasedSummary({ billName, orderLine, summary }) {
   return (
     <>
-      <div className="flex p-2 bg-white text-3xl">{billName}</div>
+      <div className="flex p-2  text-3xl">{billName}</div>
       {orderLine.map((item, id) => (
-        <div className="flex flex-col bg-white p-2" key={id}>
+        <div className="flex flex-col  p-2" key={id}>
           <div className="flex flex-1 justify-between text-xl">
             <div>{item.item_name}</div>
             <div>{item.actual_price}</div>
@@ -21,7 +21,7 @@ export default function ItemBasedSummary({ billName, orderLine, summary }) {
           </div>
         </div>
       ))}
-      <div className="flex justify-between text-xl bg-white p-2">
+      <div className="flex justify-between text-xl  p-2">
         <div>รวม</div>
         <div>{summary.summary} Baht</div>
       </div>

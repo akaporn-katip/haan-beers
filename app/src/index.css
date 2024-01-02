@@ -16,9 +16,8 @@ code {
 }
 
 .btn.btn-create-bill {
-  @apply outline outline-2 text-create-bill-button-outline
+  @apply outline outline-2 outline-dashed text-create-bill-button-outline rounded-full
   outline-create-bill-button-outline 
-  bg-create-bill-button-default 
   hover:bg-create-bill-button-hover 
   active:bg-create-bill-button-active;
 }

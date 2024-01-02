@@ -1,13 +1,13 @@
-import { addDoc, getDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firestore";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { calculate_bill } from "../lib/calculate";
 import { auth } from "../firebase/auth";
 
 export default function useBill() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isNotFound, setIsNotFound] = useState(false);
 
+  const [billList, setBillList] = useState([]);
   const [billName, setBillName] = useState("");
   const [orderLine, setOrderLine] = useState([
     {
@@ -37,8 +37,9 @@ export default function useBill() {
   }
 
   async function saveBill() {
+    setIsLoading(true);
     try {
-      const docRef = await addDoc(
+      const docRef = addDoc(
         collection(db, "user", auth.currentUser.uid, "bill"),
         {
           billName,
@@ -47,40 +48,36 @@ export default function useBill() {
         }
       );
 
-      return ["user", auth.currentUser.uid, "bill", docRef.id];
+      return docRef.then((doc) => {
+        setIsLoading(false);
+        return ["user", auth.currentUser.uid, "bill", doc.id];
+      });
     } catch (error) {
       console.error(error);
       throw error;
     }
   }
 
-  async function getBill(uid, id) {
-    try {
-      setIsLoading(true);
-      const docRef = doc(db, "user", uid, "bill", id);
-      const docSnap = await getDoc(docRef);
-      setIsNotFound(!docSnap.exists());
-      if (docSnap.exists()) {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
-        const data = docSnap.data();
-        setBillName(data.billName);
-        setOrderLine(data.orderLine);
-      }
-      setIsLoading(false);
-      return null;
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-    }
+  function fetchBillList() {
+    const uid = auth.currentUser.uid;
+    return onSnapshot(collection(db, "user", uid, "bill"), (docs) => {
+      const results = [];
+      docs.forEach((doc) => {
+        results.push({ docId: doc.id, ...doc.data() });
+      });
+      setBillList(results);
+    });
   }
+
+  useEffect(() => {
+    const unsubscribe = fetchBillList();
+    return () => unsubscribe();
+  }, []);
 
   const summary = useMemo(() => calculate_bill(orderLine), [orderLine]);
 
   return {
     saveBill,
-    getBill,
     billName,
     setBillName,
     orderLine,
@@ -88,6 +85,6 @@ export default function useBill() {
     addItem,
     summary,
     isLoading,
-    isNotFound,
+    billList,
   };
 }
