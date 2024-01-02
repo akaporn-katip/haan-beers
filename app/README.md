@@ -113,3 +113,4 @@ bill`{
 1. https://stackoverflow.com/questions/6178556/phone-numeric-keyboard-for-text-input
 2. https://paulallies.medium.com/functional-exception-handling-in-javascript-with-the-either-monad-3fb596c73912
 3. https://degoes.net/articles/destroy-all-ifs
+4. https://developers.line.biz/en/docs/line-login/login-button/

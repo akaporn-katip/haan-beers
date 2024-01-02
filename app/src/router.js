@@ -5,6 +5,8 @@ import ErrorPage from "./error-page";
 import MainLayout from "./layout/main-layout";
 import CreateBillPage from "./page/bill/create-bill";
 import SummaryPage from "./page/bill/summary";
+import CallbackPage from "./page/callback/callback";
+import VerifyLogin from "./component/firebase/verify-login";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <MainLayout />,
+        element: (
+          <VerifyLogin>
+            <MainLayout />
+          </VerifyLogin>
+        ),
         children: [
           {
             id: "home",
@@ -39,6 +45,10 @@ const router = createBrowserRouter([
             element: <SummaryPage />,
           },
         ],
+      },
+      {
+        path: "/api/auth/callback/line",
+        element: <CallbackPage />,
       },
     ],
   },

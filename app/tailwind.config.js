@@ -34,7 +34,16 @@ module.exports = {
           active: color_palettes["golden-tainoi"][100],
           outline: color_palettes["golden-tainoi"][700],
         },
-        "friend-list-bg": "white"
+        "friend-list-bg": "white",
+        "line-button": {
+          DEFAULT: color_palettes["malachite"][600],
+          divide: "black",
+          hover: "black",
+          press: "black",
+        },
+      },
+      opacity: {
+        8: "0.08",
       },
     },
   },
