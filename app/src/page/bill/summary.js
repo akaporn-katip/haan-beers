@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import useBill from "../../services/useBill";
 import { Fragment, useEffect } from "react";
 import ShareButton from "../../component/common/share-btn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,9 +13,14 @@ export default function SummaryPage() {
   const { isLoading, isNotFound, getBill, billName, summary, orderLine } =
     useSummary();
 
-  useEffect(() => {
+  function handleGetBill() {
     getBill(userId, docId);
-  }, [docId, userId]);
+  }
+
+  useEffect(() => {
+    handleGetBill();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) return <div>Loadding</div>;
   if (isNotFound) return <div>Not Found</div>;
