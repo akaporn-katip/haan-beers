@@ -18,7 +18,7 @@ test("calculate item - ratio", () => {
   expect(result).toEqual({
     item_name: "beer",
     price: "85",
-    actual_price: "85",
+    actual_price: "257",
     is_rounded: false,
     person: [
       { id: 1, name: "np", range: [1, 3], amount: "114" },
@@ -90,9 +90,9 @@ test("calculate item - adjust", () => {
 test("calculate bill", () => {
   const result = calculate_bill([
     {
-      item_name: "beer",
+      item_name: "food",
       type: "adjust",
-      price: "",
+      price: "80",
       summary: null,
       unit: "THB/UNIT",
       person: [
@@ -104,7 +104,7 @@ test("calculate bill", () => {
     },
     {
       item_name: "beer",
-      type: "adjust",
+      type: "ratio",
       price: "85",
       summary: null,
       unit: "THB/UNIT",
@@ -114,19 +114,17 @@ test("calculate bill", () => {
       ],
     },
   ]);
-
+  
   expect(result).toEqual({
-    summary: "1,000",
+    summary: "1,171",
     person: [
       {
         id: "1",
         name: "np",
         amount: "100",
         items: [
-          {
-            item_name: "beer",
-            amount: "100",
-          },
+          { item_name: "food", amount: "100" },
+          { item_name: "beer", amount: "0" },
         ],
       },
       {
@@ -134,33 +132,21 @@ test("calculate bill", () => {
         name: "bom",
         amount: "200",
         items: [
-          {
-            item_name: "beer",
-            amount: "200",
-          },
+          { item_name: "food", amount: "200" },
+          { item_name: "beer", amount: "0" },
         ],
       },
       {
         id: "3",
         name: "ben",
         amount: "300",
-        items: [
-          {
-            item_name: "beer",
-            amount: "300",
-          },
-        ],
+        items: [{ item_name: "food", amount: "300" }],
       },
       {
         id: "4",
         name: "beem",
         amount: "400",
-        items: [
-          {
-            item_name: "beer",
-            amount: "400",
-          },
-        ],
+        items: [{ item_name: "food", amount: "400" }],
       },
     ],
   });

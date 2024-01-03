@@ -3,12 +3,12 @@ import calculate_adjust from "./calculate_adjust";
 import calculate_equality from "./calculate_equality";
 import calculate_ratio from "./calculate_ratio";
 
-function make_summary(price, person, actual_price, item_name) {
+function make_summary(price, person, actual_price, item_name, rounded) {
   return {
     item_name,
     price,
     actual_price,
-    is_rounded: price !== actual_price,
+    is_rounded: rounded(price, actual_price),
     person: person,
   };
 }
@@ -38,18 +38,25 @@ export function calculate_item(item) {
       item.price,
       item.person.map((p) => ({ ...p, amount: "" }))
     );
-    return make_summary(item.price, _person, item.price, item.item_name);
+    return make_summary(
+      item.price,
+      _person,
+      sum_person(_person),
+      item.item_name,
+      () => false
+    );
   } else if (item.type === "equality") {
     const _person = calculate_equality(item.price, item.person);
     return make_summary(
       item.price,
       _person,
       sum_person(_person),
-      item.item_name
+      item.item_name,
+      (p, a) => p !== a
     );
   } else if (item.type === "adjust") {
     const price = calculate_adjust(item.person);
-    return make_summary(price, item.person, price, item.item_name);
+    return make_summary(price, item.person, price, item.item_name, () => false);
   }
   return null;
 }
