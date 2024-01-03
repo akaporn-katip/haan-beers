@@ -1,14 +1,8 @@
 import useFirebaseAuth from "../../services/useFirebaseAuth";
-import LineLoginButton from "../common/line-login-btn";
+import LoginForm from "../login/login-form";
 
 export default function AuthGuard({ children }) {
   const { isLogin } = useFirebaseAuth();
-
-  if (!isLogin)
-    return (
-      <>
-        <LineLoginButton />
-      </>
-    );
+  if (!isLogin) return <LoginForm />;
   return <>{children}</>;
 }

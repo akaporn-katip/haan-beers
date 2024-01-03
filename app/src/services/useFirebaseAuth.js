@@ -5,7 +5,7 @@ import {
 } from "firebase/auth";
 import { createCustomtoken } from "../firebase/function";
 import { auth } from "../firebase/auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function useFirebaseAuth() {
   const [user, setUser] = useState(null);
@@ -27,21 +27,16 @@ export default function useFirebaseAuth() {
     }
   }
 
-  async function signInDevelopment() {
-    signInAnonymously(auth)
-      .then(() => {
-        setIsLogin(true);
-      })
-      .catch(() => {
-        setIsLogin(false);
-      });
+  async function anonymouslyLogin() {
+    if (isDev)
+      signInAnonymously(auth)
+        .then(() => {
+          setIsLogin(true);
+        })
+        .catch(() => {
+          setIsLogin(false);
+        });
   }
-
-  useEffect(() => {
-    if (isDev) {
-      signInDevelopment();
-    }
-  }, [isDev]);
 
   onAuthStateChanged(auth, (user) => {
     setUser(user);
@@ -52,5 +47,5 @@ export default function useFirebaseAuth() {
     }
   });
 
-  return { signIn, isLogin, user };
+  return { signIn, isLogin, user, anonymouslyLogin, isDev };
 }

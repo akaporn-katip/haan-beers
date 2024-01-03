@@ -1,13 +1,11 @@
-import { Outlet } from "react-router-dom";
 import AppBar from "../component/common/appbar";
 
-
-export default function MainLayout() {
+export default function MainLayout({ children }) {
   return (
     <>
       <div className="container">
         <AppBar />
-        <Outlet />
+        {children}
       </div>
     </>
   );

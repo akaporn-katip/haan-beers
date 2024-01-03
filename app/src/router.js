@@ -1,6 +1,6 @@
 import HomePage from "@/page/home/home.js";
 import Root from "@/root";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import ErrorPage from "./error-page";
 import MainLayout from "./layout/main-layout";
 import CreateBillPage from "./page/bill/create-bill";
@@ -9,7 +9,6 @@ import CallbackPage from "./page/callback/callback";
 import AuthGuard from "./component/firebase/auth-guard";
 import FriendManagerPage from "./page/friend/friend-manager";
 import BillListPage from "./page/home/bill-list";
-
 const router = createBrowserRouter([
   {
     id: "root",
@@ -21,7 +20,9 @@ const router = createBrowserRouter([
         path: "/",
         element: (
           <AuthGuard>
-            <MainLayout />
+            <MainLayout>
+              <Outlet />
+            </MainLayout>
           </AuthGuard>
         ),
         children: [
