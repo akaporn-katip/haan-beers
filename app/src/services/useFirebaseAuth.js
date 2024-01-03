@@ -10,7 +10,9 @@ import { useState } from "react";
 export default function useFirebaseAuth() {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
-  const [isDev] = useState(process.env.NODE_ENV === "development");
+  const [isAllowAnonymous] = useState(
+    process.env.REACT_APP_ALLOW_ANONYMOUS === "true"
+  );
   async function signIn(code) {
     try {
       const { data } = await createCustomtoken({
@@ -28,7 +30,7 @@ export default function useFirebaseAuth() {
   }
 
   async function anonymouslyLogin() {
-    if (isDev)
+    if (isAllowAnonymous)
       signInAnonymously(auth)
         .then(() => {
           setIsLogin(true);
@@ -47,5 +49,5 @@ export default function useFirebaseAuth() {
     }
   });
 
-  return { signIn, isLogin, user, anonymouslyLogin, isDev };
+  return { signIn, isLogin, user, anonymouslyLogin, isAllowAnonymous };
 }
