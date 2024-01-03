@@ -6,7 +6,7 @@ import MainLayout from "./layout/main-layout";
 import CreateBillPage from "./page/bill/create-bill";
 import SummaryPage from "./page/bill/summary";
 import CallbackPage from "./page/callback/callback";
-import VerifyLogin from "./component/firebase/verify-login";
+import AuthGuard from "./component/firebase/auth-guard";
 import FriendManagerPage from "./page/friend/friend-manager";
 import BillListPage from "./page/home/bill-list";
 
@@ -20,9 +20,9 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <VerifyLogin>
+          <AuthGuard>
             <MainLayout />
-          </VerifyLogin>
+          </AuthGuard>
         ),
         children: [
           {
