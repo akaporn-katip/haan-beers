@@ -13,7 +13,7 @@ export default function useFriend() {
     return onSnapshot(collection(db, "user", uid, "friend"), (docs) => {
       const results = [];
       docs.forEach((doc) => {
-        results.push({ id: doc.id, amount: "", range: [], ...doc.data() });
+        results.push({ id: doc.id, amount: "", range: ["", ""], ...doc.data() });
       });
       setFriendList(results);
     });

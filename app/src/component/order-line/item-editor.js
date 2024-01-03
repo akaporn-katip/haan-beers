@@ -1,44 +1,11 @@
-import { faInfoCircle, faTrash, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faInfoCircle,
+  faTrash,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FriendSelectorModal from "../friend/friend-selector-modal";
-
-const FriendComponent = function ({ item, person, handleUpdatePerson }) {
-  function handleUpdatePersonAmount(e) {
-    handleUpdatePerson((prev) => ({
-      ...prev,
-      amount: e.target.value,
-    }));
-  }
-
-  function handleUpdatePersonRange(from, to) {
-    handleUpdatePerson((prev) => ({
-      ...prev,
-      range: [from, to],
-    }));
-  }
-
-  return (
-    <>
-      <div>
-        <input
-          className="text-left w-full border-b-2 border-dashed "
-          defaultValue={person.name}
-          readOnly
-        />
-      </div>
-      <div>
-        <input
-          className="text-right w-full border-b-2 border-dashed bg-friend-list-bg"
-          value={person.amount}
-          onChange={handleUpdatePersonAmount}
-          readOnly={item.type === "equality"}
-          inputMode="numeric"
-          placeholder={item.type === "adjust" ? "ใส่ราคา" : ""}
-        />
-      </div>
-    </>
-  );
-};
+import FriendAmountEditor from "./friend-amount-editor";
 
 export default function ItemEditor({ initialValue, updateItem, removeItem }) {
   function handleUpdateItemName(e) {
@@ -162,7 +129,7 @@ export default function ItemEditor({ initialValue, updateItem, removeItem }) {
         <div>ชื่อ</div>
         <div className="text-right">ราคา/ช่วง</div>
         {initialValue.person.map((person, idx) => (
-          <FriendComponent
+          <FriendAmountEditor
             key={person.id}
             item={initialValue}
             person={person}

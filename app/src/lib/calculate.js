@@ -21,7 +21,7 @@ function currency_format(value) {
   return formatter.format(value);
 }
 
-const to_number = (v) => Number(v.replace(",", ""));
+const to_number = (v) => Number(String(v).replace(",", ""));
 
 function sum_person(person) {
   return currency_format(
@@ -34,7 +34,10 @@ function sum_person(person) {
 
 export function calculate_item(item) {
   if (item.type === "ratio") {
-    const _person = calculate_ratio(item.price, item.person);
+    const _person = calculate_ratio(
+      item.price,
+      item.person.map((p) => ({ ...p, amount: "" }))
+    );
     return make_summary(item.price, _person, item.price, item.item_name);
   } else if (item.type === "equality") {
     const _person = calculate_equality(item.price, item.person);
@@ -89,7 +92,6 @@ const map_item = Monet.curry((items, person) => {
     items: items_of_person,
   };
 });
-
 
 // TODO: Refactor
 export function calculate_bill(items) {

@@ -92,7 +92,7 @@ test("calculate bill", () => {
     {
       item_name: "beer",
       type: "adjust",
-      price: "401",
+      price: "",
       summary: null,
       unit: "THB/UNIT",
       person: [
@@ -100,6 +100,17 @@ test("calculate bill", () => {
         { id: "2", name: "bom", range: [], amount: "200" },
         { id: "3", name: "ben", range: [], amount: "300" },
         { id: "4", name: "beem", range: [], amount: "400" },
+      ],
+    },
+    {
+      item_name: "beer",
+      type: "adjust",
+      price: "85",
+      summary: null,
+      unit: "THB/UNIT",
+      person: [
+        { id: "1", name: "np", range: ["1", "2"], amount: "" },
+        { id: "2", name: "bom", range: ["2", "2"], amount: "" },
       ],
     },
   ]);

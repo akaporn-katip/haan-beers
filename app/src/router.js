@@ -52,7 +52,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/user/:userId",
-        element: <MainLayout />,
+        element: (
+          <MainLayout>
+            <Outlet />
+          </MainLayout>
+        ),
         children: [
           {
             id: "summary-bill",
