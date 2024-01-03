@@ -8,7 +8,7 @@
  */
 
 const functions = require("firebase-functions");
-// const logger = require("firebase-functions/logger");
+const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
 const {initializeApp} = require("firebase-admin/app");
 const {onRequest} = functions.region("asia-east1").https;
@@ -16,7 +16,9 @@ const cors = require("cors")({origin: true});
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
 
-initializeApp();
+initializeApp({
+  serviceAccountId: process.env["SERVICE_ACCOUNT_ID"],
+});
 
 // exports.helloWorld = onRequest((request, response) => {
 //   logger.info("Hello logs!", {structuredData: true});
@@ -28,6 +30,7 @@ exports.createCustomtoken = onRequest((request, response) => {
     const headers = new Headers();
     headers.set("content-type", "application/x-www-form-urlencoded");
 
+    logger.info(request.body.data, {structuredData: true});
     const requestToken = await fetch("https://api.line.me/oauth2/v2.1/token", {
       method: "POST",
       headers,
