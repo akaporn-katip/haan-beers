@@ -15,6 +15,14 @@ code {
     monospace;
 }
 
+.btn {
+  @apply py-2 px-4 rounded-md;
+}
+
+.btn.btn-primary {
+  @apply bg-primary; 
+}
+
 .btn.btn-create-bill {
   @apply outline outline-2 outline-dashed text-create-bill-button-outline rounded-full
   outline-create-bill-button-outline 

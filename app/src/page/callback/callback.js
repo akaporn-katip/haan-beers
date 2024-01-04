@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFirebaseAuth from "../../services/useFirebaseAuth";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +19,21 @@ export default function CallbackPage() {
       .catch(() => {
         setIsError(true);
       });
-  }, [signIn, searchParams, navigate]);
+  }, [searchParams]);
 
   return (
     <MainLayout>
       <div className="bg-white p-2 rounded-md">
-        {isError ? "Ops somethings wrong..." : "Please wait..."}
+        {isError ? (
+          <div>
+            Ops somethings wrong... Goto Login{" "}
+            <Link to={"/"}>
+              <button className="btn btn-primary">Click</button>
+            </Link>
+          </div>
+        ) : (
+          "Please wait..."
+        )}
       </div>
     </MainLayout>
   );
