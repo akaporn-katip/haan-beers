@@ -69,48 +69,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-
-```
-bill`{
-    bill_name: '',
-    status: 'draft|publish',
-    summary: '',
-    person_summary: [
-        {
-            name: '',
-            amount: '',
-            detail: [{item_name}]
-        }
-    ],
-    order_line: [
-        {
-            item_name: '',
-            type: 'หารเท่า|แบบสัดส่วน',
-            price: '',
-            unit: 'บาท|บาท/หน่วย'
-            person: [
-                {name: '', range: [1, 10], amount: ''},
-                {name: '', range: [3, 10], amount: ''},
-                {name: '', range: [5, 8], amount: ''},
-            ]
-        },
-        {
-            item_name: '',
-            type: 'หารเท่า|แบบสัดส่วน',
-            price: '',
-            unit: 'บาท|บาท/หน่วย'
-            person: [
-                {name: '', range: []},
-                {name: '', range: []},
-                {name: '', range: []},
-            ]
-        }
-    ]
-}`
-```
-
 ### Reference
 1. https://stackoverflow.com/questions/6178556/phone-numeric-keyboard-for-text-input
 2. https://paulallies.medium.com/functional-exception-handling-in-javascript-with-the-either-monad-3fb596c73912
 3. https://degoes.net/articles/destroy-all-ifs
 4. https://developers.line.biz/en/docs/line-login/login-button/
+5. https://craco.js.org/docs/
+6. https://million.dev/
