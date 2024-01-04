@@ -12,7 +12,13 @@ const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
 const {initializeApp} = require("firebase-admin/app");
 const {onRequest} = functions.region("asia-east1").https;
-const cors = require("cors")({origin: true});
+
+const origin = [
+  "haan-beer.web.app",
+  "haan-beer.katipwork.com",
+  "haan-beer.firebaseapp.com",
+];
+const cors = require("cors")({origin});
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
 
