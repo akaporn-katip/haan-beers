@@ -6,7 +6,7 @@ import Divider from "../../component/common/divider";
 import { useNavigate } from "react-router-dom";
 import { calculate_item } from "../../lib/calculate";
 import useBill from "../../services/useBill";
-import { Helmet } from "react-helmet";
+import Header from "../../component/common/header";
 
 export default function CreateBillPage() {
   const bill_name_ref = useRef();
@@ -64,9 +64,9 @@ export default function CreateBillPage() {
 
   return (
     <>
-      <Helmet>
+      <Header>
         <title>สร้างบิล</title>
-      </Helmet>
+      </Header>
       <div className="flex flex-col bg-white px-2 rounded-t-md">
         <div className="w-full">
           <input

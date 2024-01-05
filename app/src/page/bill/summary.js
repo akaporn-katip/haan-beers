@@ -7,7 +7,7 @@ import { Tab } from "@headlessui/react";
 import PersonBasedSummary from "../../component/order-line/person-based-summary";
 import ItemBasedSummary from "../../component/order-line/item-based-summary";
 import useSummary from "../../services/useSummary";
-import { Helmet } from "react-helmet";
+import Header from "../../component/common/header";
 
 export default function SummaryPage() {
   const { docId, userId } = useParams();
@@ -27,9 +27,9 @@ export default function SummaryPage() {
   if (isNotFound) return <div>Not Found</div>;
   return (
     <>
-      <Helmet>
-        <title>{billName} - haan-beer</title>
-      </Helmet>
+      <Header>
+        <title>{billName}</title>
+      </Header>
       <Tab.Group>
         <Tab.List>
           <Tab as={Fragment}>

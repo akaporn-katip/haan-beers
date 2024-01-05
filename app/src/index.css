@@ -20,7 +20,7 @@ code {
 }
 
 .btn.btn-primary {
-  @apply bg-primary; 
+  @apply bg-primary;
 }
 
 .btn.btn-create-bill {

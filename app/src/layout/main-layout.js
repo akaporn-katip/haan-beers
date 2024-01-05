@@ -1,9 +1,11 @@
 import AppBar from "../component/common/appbar";
+import Header from "../component/common/header";
 
 export default function MainLayout({ children }) {
   return (
     <>
-      <div className="container">
+      <Header></Header>
+      <div className="container h-full">
         <AppBar />
         {children}
       </div>

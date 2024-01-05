@@ -5,7 +5,7 @@ import useBill from "../../services/useBill";
 import PersonBasedSummary from "../../component/order-line/person-based-summary";
 import { auth } from "../../firebase/auth";
 import { useState } from "react";
-import { Helmet } from "react-helmet";
+import Header from "../../component/common/header";
 
 export default function BillListPage() {
   const { billList } = useBill();
@@ -13,9 +13,8 @@ export default function BillListPage() {
 
   return (
     <>
-      <Helmet>
-        <title>dashboard</title>
-      </Helmet>
+      <Header>
+      </Header>
       <div className="flex flex-col space-y-2">
         <Link
           to={"/create"}
