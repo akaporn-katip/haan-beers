@@ -3,7 +3,6 @@
 
 name: Deploy to Firebase Hosting on push
 on:
-  
   push:
     branches: [develop]
 
@@ -18,16 +17,16 @@ jobs:
       - name: create env file
         run: |
           touch ./app/.env
-          echo REACT_APP_LINE_REDIRECT_URI=${{ vars.REACT_APP_LINE_REDIRECT_URI }} >> ./app/.env
+          echo REACT_APP_LINE_REDIRECT_URI=${{ vars.LINE_REDIRECT_URI }} >> ./app/.env
           echo REACT_APP_LINE_CLIENT_ID=${{ secrets.LINE_CLIENT_ID }} >> ./app/.env
-          echo REACT_APP_FIREBASE_API_KEY=${{ vars.REACT_APP_FIREBASE_API_KEY }} >> ./app/.env
-          echo REACT_APP_FIREBASE_AUTH_DOMAIN=${{ vars.REACT_APP_FIREBASE_AUTH_DOMAIN }} >> ./app/.env
-          echo REACT_APP_FIREBASE_PROJECT_ID=${{ vars.REACT_APP_FIREBASE_PROJECT_ID }} >> ./app/.env
-          echo REACT_APP_FIREBASE_STORAGE_BUCKET=${{ vars.REACT_APP_FIREBASE_STORAGE_BUCKET }} >> ./app/.env
-          echo REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${{ vars.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }} >> ./app/.env
-          echo REACT_APP_FIREBASE_APP_ID=${{ vars.REACT_APP_FIREBASE_APP_ID }} >> ./app/.env
-          echo REACT_APP_FIREBASE_MEASUREMENT_ID=${{ vars.REACT_APP_FIREBASE_MEASUREMENT_ID }} >> ./app/.env
-          echo REACT_APP_ALLOW_ANONYMOUS=${{ vars.REACT_APP_ALLOW_ANONYMOUS }} >> ./app/.env
+          echo REACT_APP_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }} >> ./app/.env
+          echo REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }} >> ./app/.env
+          echo REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }} >> ./app/.env
+          echo REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }} >> ./app/.env
+          echo REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }} >> ./app/.env
+          echo REACT_APP_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }} >> ./app/.env
+          echo REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }} >> ./app/.env
+          echo REACT_APP_ALLOW_ANONYMOUS=${{ vars.ALLOW_ANONYMOUS }} >> ./app/.env
       - run: cd app && npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
