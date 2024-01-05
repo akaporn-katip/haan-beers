@@ -7,6 +7,7 @@ import { Tab } from "@headlessui/react";
 import PersonBasedSummary from "../../component/order-line/person-based-summary";
 import ItemBasedSummary from "../../component/order-line/item-based-summary";
 import useSummary from "../../services/useSummary";
+import { Helmet } from "react-helmet";
 
 export default function SummaryPage() {
   const { docId, userId } = useParams();
@@ -19,13 +20,16 @@ export default function SummaryPage() {
 
   useEffect(() => {
     handleGetBill();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) return <div>Loadding</div>;
   if (isNotFound) return <div>Not Found</div>;
   return (
     <>
+      <Helmet>
+        <title>{billName} - haan-beer</title>
+      </Helmet>
       <Tab.Group>
         <Tab.List>
           <Tab as={Fragment}>
