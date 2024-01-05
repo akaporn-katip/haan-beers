@@ -97,9 +97,10 @@ function createUser(userInfomation) {
  * @return {Promise<UserRecord>} user firebase user
  */
 async function getOrCreateUser(userInfomation) {
-  const found = await admin.auth().getUser(userInfomation.sub);
-  if (found) return found;
-  else return await createUser(userInfomation);
+  return admin
+      .auth()
+      .getUser(userInfomation.sub)
+      .catch(() => createUser(userInfomation));
 }
 
 /**
