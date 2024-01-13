@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 export default function ShareButton({ children, title, text, url }) {
   async function share() {
     if (navigator.canShare && navigator.canShare())
