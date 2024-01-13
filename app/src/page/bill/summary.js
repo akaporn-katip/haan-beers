@@ -72,7 +72,7 @@ export default function SummaryPage() {
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
-      <div className="flex justify-end bg-white p-2 rounded-b-md">
+      <div className="flex justify-end items-center bg-white p-2 rounded-b-md space-x-1">
         <ShareButton
           className="btn"
           title={billName}
