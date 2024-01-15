@@ -1,16 +1,24 @@
 export default function ShareButton({ children, title, text, url }) {
+  function toClipboard() {
+    if (navigator.clipboard)
+      navigator.clipboard.writeText(`${title} - ${text} : ${url}`);
+  }
+
   async function share() {
     if (navigator.share)
       navigator
         .share({
           title,
-          text,
+          text: `${title} - ${text}`,
           url,
         })
-        .then(() => console.log("share success"))
-        .catch((e) => console.error(e));
-    if (navigator.clipboard)
-      navigator.clipboard.writeText(`${title} - ${text} : ${url}`);
+        .then(() => {
+          console.log("share success");
+        })
+        .catch(() => {
+          toClipboard();
+        });
+    else toClipboard();
   }
 
   function selectAll(e) {
